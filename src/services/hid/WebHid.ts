@@ -16,6 +16,7 @@ import {
   IFetchRGBLightColorResult,
   IFetchRGBLightEffectSpeedResult,
   IFetchRGBLightEffectResult,
+  IFetchControlBoardSignatureResult,
 } from './Hid';
 import { KeycodeList } from './KeycodeList';
 
@@ -28,6 +29,7 @@ import {
   LightingGetValueCommand,
   LightingSaveCommand,
   LightingSetValueCommand,
+  GetControBoardSignatureCommand,
 } from './Commands';
 import {
   IKeycodeCompositionFactory,
@@ -427,6 +429,31 @@ export class Keyboard implements IKeyboard {
             resolve({
               success: true,
               speed: result.response!.value1,
+            });
+          } else {
+            resolve({
+              success: false,
+              error: result.error,
+              cause: result.cause,
+            });
+          }
+        }
+      );
+      return this.enqueue(command);
+    });
+  }
+
+  fetchControlBoardSignature(): Promise<IFetchControlBoardSignatureResult> {
+    return new Promise<IFetchControlBoardSignatureResult>((resolve) => {
+      const command = new GetControBoardSignatureCommand(
+        {
+          signature: 0,
+        },
+        async (result) => {
+          if (result.success) {
+            resolve({
+              success: true,
+              signature: result.response!.signature,
             });
           } else {
             resolve({

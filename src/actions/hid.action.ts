@@ -20,6 +20,7 @@ export const HID_UPDATE_KEYBOARD = `${HID_ACTIONS}/UpdateKeyboard`;
 export const HID_UPDATE_KEYBOARD_LAYER_COUNT = `${HID_ACTIONS}/UpdateKeyboardLayerCount`;
 export const HID_UPDATE_KEYBOARD_LIST = `${HID_ACTIONS}/UpdateKeyboardList`;
 export const HID_UPDATE_KEYMAPS = `${HID_ACTIONS}/UpdateKeymaps`;
+export const HID_UPDATE_CONTROL_BOARD_SIGNATURE = `${HID_ACTIONS}/UpdateControlBoardSignature`;
 export const HID_OPEN_KEYBOARD = `${HID_ACTIONS}/OpenKeyboard`;
 export const HidActions = {
   connectKeyboard: (keyboard: IKeyboard) => {
@@ -61,6 +62,13 @@ export const HidActions = {
     return {
       type: HID_UPDATE_KEYMAPS,
       value: { keymaps: keymaps },
+    };
+  },
+
+  updateControlBoardSignature: (signature: number) => {
+    return {
+      type: HID_UPDATE_CONTROL_BOARD_SIGNATURE,
+      value: { signature: signature },
     };
   },
 };
@@ -356,6 +364,10 @@ const initOpenedKeyboard = async (
     labelLang
   );
   dispatch(HidActions.updateKeymaps(keymaps));
+  const boardSignature = await keyboard.fetchControlBoardSignature();
+  if (boardSignature.success) {
+    dispatch(HidActions.updateControlBoardSignature(boardSignature.signature!));
+  }
   dispatch(AppActions.remapsInit(layerCount));
   dispatch(KeymapActions.updateSelectedLayer(0)); // initial selected layer
   dispatch(HidActions.updateKeyboard(keyboard));

@@ -358,3 +358,30 @@ export class DynamicKeymapResetCommand extends AbstractCommand<
     return resultArray[0] === 0x06;
   }
 }
+
+export interface IGetControlBoardSignatureCommand extends ICommandResponse {
+  signature: number;
+}
+
+export class GetControBoardSignatureCommand extends AbstractCommand<
+  ICommandRequest,
+  IGetControlBoardSignatureCommand
+> {
+  createReport(): Uint8Array {
+    return new Uint8Array([0x02, 0xff]);
+  }
+
+  createResponse(resultArray: Uint8Array): IGetControlBoardSignatureCommand {
+    return {
+      signature:
+        (resultArray[2] << 24) |
+        (resultArray[3] << 16) |
+        (resultArray[4] << 8) |
+        resultArray[5],
+    };
+  }
+
+  isSameRequest(resultArray: Uint8Array): boolean {
+    return resultArray[0] === 0x02 && resultArray[1] === 0xff;
+  }
+}

@@ -101,6 +101,10 @@ export interface IFetchRGBLightColorResult extends IResult {
   sat?: number;
 }
 
+export interface IFetchControlBoardSignatureResult extends IResult {
+  signature?: number;
+}
+
 export interface IKeyboard {
   getDevice(): any;
   getHid(): IHid;
@@ -129,6 +133,7 @@ export interface IKeyboard {
   fetchRGBLightEffect(): Promise<IFetchRGBLightEffectResult>;
   fetchRGBLightEffectSpeed(): Promise<IFetchRGBLightEffectSpeedResult>;
   fetchRGBLightColor(): Promise<IFetchRGBLightColorResult>;
+  fetchControlBoardSignature(): Promise<IFetchControlBoardSignatureResult>;
   updateBacklightBrightness(brightness: number): Promise<IResult>;
   updateBacklightEffect(isBreathing: boolean): Promise<IResult>;
   updateRGBLightBrightness(brightness: number): Promise<IResult>;

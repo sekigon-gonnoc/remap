@@ -133,6 +133,11 @@ export const mockIKeyboad: IKeyboard = {
       resolve({ success: true, hue: 200, sat: 111 });
     });
   },
+  fetchControlBoardSignature: () => {
+    return new Promise((resolve) => {
+      resolve({ success: true, signature: 0 });
+    });
+  },
   updateBacklightBrightness: (brightness: number) => {
     return new Promise((resolve) => {
       resolve({ success: true });

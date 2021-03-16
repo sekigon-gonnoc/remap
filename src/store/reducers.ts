@@ -48,6 +48,7 @@ import {
   HID_UPDATE_KEYBOARD_LAYER_COUNT,
   HID_UPDATE_KEYBOARD_LIST,
   HID_UPDATE_KEYMAPS,
+  HID_UPDATE_CONTROL_BOARD_SIGNATURE,
 } from '../actions/hid.action';
 import {
   STORAGE_ACTIONS,
@@ -379,6 +380,10 @@ const hidReducer = (action: Action, draft: WritableDraft<RootState>) => {
     }
     case HID_UPDATE_KEYMAPS: {
       draft.entities.device.keymaps = action.value.keymaps;
+      break;
+    }
+    case HID_UPDATE_CONTROL_BOARD_SIGNATURE: {
+      draft.entities.device.controlBoardSignature = action.value.signature;
       break;
     }
   }

@@ -71,6 +71,7 @@ export type RootState = {
       macros: {
         [id: number]: string;
       };
+      controlBoardSignature: number;
     };
     keyboards: IKeyboard[]; // authorized keyboard list
     keyboard: IKeyboard | null;
@@ -193,6 +194,7 @@ export const INIT_STATE: RootState = {
       columnCount: NaN,
       keymaps: [],
       macros: {},
+      controlBoardSignature: NaN,
     },
     keyboards: [],
     keyboard: null, // hid.keyboards[i]
