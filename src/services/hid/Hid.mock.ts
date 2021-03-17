@@ -168,6 +168,11 @@ export const mockIKeyboad: IKeyboard = {
       resolve({ success: true });
     });
   },
+  updateControlBoardKeymap: () => {
+    return new Promise((resolve) => {
+      resolve({ success: true });
+    });
+  },
   resetDynamicKeymap: () => {
     return new Promise((resolve) => {
       resolve({ success: true });

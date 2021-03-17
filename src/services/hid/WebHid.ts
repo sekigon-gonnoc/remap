@@ -30,6 +30,7 @@ import {
   LightingSaveCommand,
   LightingSetValueCommand,
   GetControBoardSignatureCommand,
+  UpdateControlBoardKeymapCommand,
 } from './Commands';
 import {
   IKeycodeCompositionFactory,
@@ -454,6 +455,28 @@ export class Keyboard implements IKeyboard {
             resolve({
               success: true,
               signature: result.response!.signature,
+            });
+          } else {
+            resolve({
+              success: false,
+              error: result.error,
+              cause: result.cause,
+            });
+          }
+        }
+      );
+      return this.enqueue(command);
+    });
+  }
+
+  updateControlBoardKeymap(): Promise<IResult> {
+    return new Promise<IResult>((resolve) => {
+      const command = new UpdateControlBoardKeymapCommand(
+        {},
+        async (result) => {
+          if (result.success) {
+            resolve({
+              success: true,
             });
           } else {
             resolve({

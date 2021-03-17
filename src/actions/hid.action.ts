@@ -318,6 +318,22 @@ export const hidActionsThunk = {
         }
       }
     }
+
+    if (getState().entities.device.controlBoardSignature === 0x424c454d) {
+      const result = await keyboard.updateControlBoardKeymap();
+      if (!result.success) {
+        console.error(result.cause);
+        dispatch(
+          NotificationActions.addError(
+            `Flush error: Updating BLE Micro Pro keymap failed`,
+            result.cause
+          )
+        );
+        dispatch(HeaderActions.updateFlashing(false));
+        return;
+      }
+    }
+
     const keymaps: IKeymaps[] = await loadKeymap(
       dispatch,
       keyboard,

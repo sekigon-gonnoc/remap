@@ -385,3 +385,21 @@ export class GetControBoardSignatureCommand extends AbstractCommand<
     return resultArray[0] === 0x02 && resultArray[1] === 0xff;
   }
 }
+
+export class UpdateControlBoardKeymapCommand extends AbstractCommand<
+  ICommandRequest,
+  ICommandResponse
+> {
+  createReport(): Uint8Array {
+    return new Uint8Array([0x03, 0xff]);
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  createResponse(resultArray: Uint8Array): ICommandResponse {
+    return {};
+  }
+
+  isSameRequest(resultArray: Uint8Array): boolean {
+    return resultArray[0] === 0x03 && resultArray[1] === 0xff;
+  }
+}
